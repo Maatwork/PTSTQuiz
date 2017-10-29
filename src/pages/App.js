@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import '../src/css/App.css';
-
-
 
 class App extends Component {
     constructor() {
@@ -12,7 +9,7 @@ class App extends Component {
     componentDidMount(){
         fetch(settings.url)
             .then(res => {
-                //console.log(res);
+                console.log(res);
                 res.json().then((data) => {
                     console.log(data);
                     /*
@@ -20,7 +17,7 @@ class App extends Component {
                     var items = this.state.items.slice()
                     items.push(data.rows[0])
                     */
-                    this.setState({ items: data.rows })
+                    this.setState({ items: data });
                 });
             })
             .catch((error) => {
@@ -30,11 +27,11 @@ class App extends Component {
 
     render() {
         return (
-            <div class="list-group">
+            <div className="list-group">
                 {this.state.items.length ? this.state.items.map(item =>
-                    <a href={"/category/" + item.categoryid} class="list-group-item">
-                        <h4 class="list-group-item-heading">{item.title}</h4>
-                        <p class="list-group-item-text">{item.description}</p>
+                    <a href={"/category/" + item.id} className="list-group-item" key={item.id}>
+                        <h4 className="list-group-item-heading">{item.title}</h4>
+                        <p className="list-group-item-text">{item.description}</p>
                     </a>): <p> Loading... </p>}
 
             </div>

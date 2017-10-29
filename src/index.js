@@ -1,8 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './css/index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import './css/bootstrap.css';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+import registerServiceWorker from './registerServiceWorker';
+import { Router, Route, BrowserRouter} from 'react-router-dom'
+
+import AppPage from "./pages/App.js";
+import QuestionList from "./pages/QuestionList.js";
+import AddCategory from "./pages/AddCategory";
+
+ReactDOM.render(
+    <BrowserRouter>
+        <div>
+            <Route path="/Index" component={AppPage}/>
+            <Route path="/category/:id" component={QuestionList}/>
+            <Route path="/categories/addCategory" component={AddCategory}/>
+        </div>
+    </BrowserRouter>,
+    document.getElementById('root')
+);registerServiceWorker();
+
+
