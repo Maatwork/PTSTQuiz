@@ -21,7 +21,18 @@ class AddCategory extends Component {
     }
 
     handleSubmit(event){
-        alert('DEBUG PURPOSSES: ' + this.state.title + this.state.description);
+        console.log('DEBUG PURPOSSES: ' + this.state.title + this.state.description);
+
+        fetch('http://localhost:3000/api/categories/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+                title: this.state.title,
+                description: this.state.description,
+            })
+        })
     }
 
     render() {
