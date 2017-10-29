@@ -33,7 +33,6 @@ class App extends Component {
                         <h4 className="list-group-item-heading">{item.title}</h4>
                         <p className="list-group-item-text">{item.description}</p>
                     </a>): <p> Loading... </p>}
-
             </div>
         );
   }

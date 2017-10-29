@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
+import Login from '../components/user/Login';
 
 class AddCategory extends Component {
     constructor(props){
         super(props);
-        this.state = {title: '', description: ''};
+        this.state = {title: '', description: '', token: ''};
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onLoginResult = this.onLoginResult.bind(this);
 
     }
 
@@ -25,6 +27,13 @@ class AddCategory extends Component {
     }
 
     render() {
+        if (!this.state.token) {
+            return(
+            <Login url="http://localhost:3000"
+                   clientId="Quiz" clientSecret="f5889489-ea7b-4b36-93d9-4cce40e11867"
+                   scope="Quiz"
+                   onResult={this.onLoginResult}/>)
+        } else {
         return (
                 <form className="form-horizontal" >
                     <div className="form-group">
@@ -49,8 +58,14 @@ class AddCategory extends Component {
                         <span className="glyphicon glyphicon-cloud-upload"></span> Upload!
                     </button>
                 </form>
-
         )
+        }
+    }
+
+    onLoginResult(error, token) {
+        if (error) return console.log(error);
+        if (token) console.log(token); //do as you wish with the token, Yannick...
+        this.setState({token: token});
     }
 }
 
