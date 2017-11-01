@@ -66,14 +66,27 @@ export default class Login extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleLogin}>
-                <label>
-                    <input type="text" value={this.state.username} onChange={this.handleUsernameChange}
-                           name="username"/>
-                    <input type="text" value={this.state.password} onChange={this.handlePasswordChange}
-                           name="password"/>
-                    <input type="submit" value="Login"/>
-                </label>
+            <form className="form-horizontal" onSubmit={this.handleLogin}>
+                <h1>Login to continue </h1>
+                <div className="form-group">
+                    <label className="cols-sm-2 control-label">Username</label>
+                    <div className="input-group">
+                        <span className="input-group-addon"><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
+                        <input type="text" className="form-control" value={this.state.username} onChange={this.handleUsernameChange} name="username"/>
+                    </div>
+                </div>
+                <div className="form-group">
+                    <label className="cols-sm-2 control-label">Password</label>
+                    <div className="input-group">
+                        <span className="input-group-addon"><i class="glyphicon glyphicon-header" aria-hidden="true"></i></span>
+                        <input type="text" className="form-control" value={this.state.password} onChange={this.handlePasswordChange} name="password"/>
+                    </div>
+                </div>
+                <div className="form-group">
+                    <label>
+                        <input type="submit" className="form-control" value="Login"/>
+                    </label>
+                </div>
             </form>
         );
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Login from '../components/user/Login';
 
-class AddCategory extends Component {
+class AddQuiz extends Component {
     constructor(props){
         super(props);
         this.state = {title: '', description: '', token: ''};
@@ -47,7 +47,7 @@ class AddCategory extends Component {
         return (
                 <form className="form-horizontal">
                     <div className="form-group">
-                        <label  className="cols-sm-2 control-label">Title of new category</label>
+                        <label className="cols-sm-2 control-label">Title of new quiz</label>
                         <div className="cols-sm-10">
                             <div className="input-group">
                                 <span className="input-group-addon"><i class="glyphicon glyphicon-header" aria-hidden="true"></i></span>
@@ -56,7 +56,7 @@ class AddCategory extends Component {
                         </div>
                     </div>
                     <div className="form-group">
-                        <label  className="cols-sm-2 control-label">Description of new category</label>
+                        <label  className="cols-sm-2 control-label">Description of new quiz</label>
                         <div className="cols-sm-10">
                             <div className="input-group">
                                 <span className="input-group-addon"><i class="glyphicon glyphicon-align-left" aria-hidden="true"></i></span>
@@ -79,4 +79,4 @@ class AddCategory extends Component {
     }
 }
 
-export default  AddCategory;
+export default  AddQuiz;
