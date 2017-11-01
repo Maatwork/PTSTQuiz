@@ -40,9 +40,9 @@ class AddCategory extends Component {
     render() {
         if (!this.state.token) {
             return(
-            <Login url="http://localhost:3000"
+            <Login url="http://maatwerk.works"
                    clientId="Quiz" clientSecret="f5889489-ea7b-4b36-93d9-4cce40e11867"
-                   scope="Quiz"
+                   scope="Quiz" refresh_token={localStorage.getItem('refresh_token')}
                    onResult={this.onLoginResult}/>)
         } else {
         return (
@@ -77,6 +77,8 @@ class AddCategory extends Component {
         if (error) return console.log(error);
         if (token) console.log(token); //do as you wish with the token, Yannick...
         this.setState({token: token});
+        localStorage.setItem('refresh_token', token.refresh_token);
+
     }
 }
 

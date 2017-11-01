@@ -7,7 +7,7 @@ export default class Login extends Component {
         this.state = {
             username: '',
             password: '',
-            refresh_token: props.refresh_token,
+            refresh_token: '',
         };
 
         if(this.props.username) {
@@ -32,7 +32,7 @@ export default class Login extends Component {
         }
     }
 
-    handleLogin(event) {
+    handleLogin(event = null) {
         const settings = {
             method: "POST",
             headers: this.getHeaders(),
@@ -53,10 +53,10 @@ export default class Login extends Component {
                 console.log(err);
                 this.props.onResult(err, '');
             });
-        if (event) event.preventDefault();
+        if (event !== null) event.preventDefault();
     }
 
-    refreshToken(setInterval = false) {
+    refreshToken(setAnInterval = false) {
         const settings = {
             method: "POST",
             headers: this.getHeaders(),
@@ -67,8 +67,9 @@ export default class Login extends Component {
                 return blob.json()
             })
             .then(res => {
-                if (setInterval) {
-                    setInterval(this.refreshToken.bind(this), (res.expires_in - 30)*1000);
+                if (!res.refresh_token) return this.props.onResult(res, '');
+                if (setAnInterval) {
+                   // setInterval(this.refreshToken.bind(this), (res.expires_in - 30)*1000);
                 }
                 this.setState({
                     refresh_token: res.refresh_token
@@ -100,7 +101,7 @@ export default class Login extends Component {
     getEncodedRefreshBody() {
         const encodedBody = new URLSearchParams();
         encodedBody.append("grant_type", "refresh_token");
-        encodedBody.append("refresh_token", this.state.refresh_token);
+        encodedBody.append("refresh_token", this.props.refresh_token);
         return encodedBody;
     }
 
@@ -123,7 +124,7 @@ export default class Login extends Component {
     render() {
         if (!this.state.refresh_token) {
             return (
-                <form onSubmit={this.handleLogin}>
+                <form className="" onSubmit={this.handleLogin}>
                     <label>
                         <input type="text" value={this.state.username} onChange={this.handleUsernameChange}
                                name="username"/>
