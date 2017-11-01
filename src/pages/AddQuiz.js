@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Login from '../components/user/Login';
 
-class AddCategory extends Component {
+class AddQuiz extends Component {
     constructor(props){
         super(props);
         this.state = {title: '', description: '', token: ''};
@@ -9,7 +9,6 @@ class AddCategory extends Component {
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onLoginResult = this.onLoginResult.bind(this);
-
     }
 
 
@@ -40,15 +39,15 @@ class AddCategory extends Component {
     render() {
         if (!this.state.token) {
             return(
-            <Login url="http://maatwerk.works"
-                   clientId="Quiz" clientSecret="f5889489-ea7b-4b36-93d9-4cce40e11867"
-                   scope="Quiz" refresh_token={localStorage.getItem('refresh_token')}
-                   onResult={this.onLoginResult}/>)
+                <Login url="http://maatwerk.works"
+                       clientId="Quiz" clientSecret="f5889489-ea7b-4b36-93d9-4cce40e11867"
+                       scope="Quiz" refresh_token={localStorage.getItem('refresh_token')}
+                       onResult={this.onLoginResult}/>)
         } else {
         return (
-                <form className="form-horizontal" >
+                <form className="form-horizontal">
                     <div className="form-group">
-                        <label for="title" className="cols-sm-2 control-label">Title of new category</label>
+                        <label className="cols-sm-2 control-label">Title of new quiz</label>
                         <div className="cols-sm-10">
                             <div className="input-group">
                                 <span className="input-group-addon"><i class="glyphicon glyphicon-header" aria-hidden="true"></i></span>
@@ -57,7 +56,7 @@ class AddCategory extends Component {
                         </div>
                     </div>
                     <div className="form-group">
-                        <label for="name" className="cols-sm-2 control-label">Description of new category</label>
+                        <label  className="cols-sm-2 control-label">Description of new quiz</label>
                         <div className="cols-sm-10">
                             <div className="input-group">
                                 <span className="input-group-addon"><i class="glyphicon glyphicon-align-left" aria-hidden="true"></i></span>
@@ -82,4 +81,4 @@ class AddCategory extends Component {
     }
 }
 
-export default  AddCategory;
+export default  AddQuiz;
