@@ -7,7 +7,7 @@ class App extends Component {
     }
 
     componentDidMount(){
-        fetch("http://localhost:3000/api/categories/")
+        fetch("http://localhost:3000/api/quizzes/")
             .then(res => {
                 console.log(res);
                 res.json().then((data) => {

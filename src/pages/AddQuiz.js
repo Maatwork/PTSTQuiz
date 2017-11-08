@@ -22,28 +22,30 @@ class AddQuiz extends Component {
     }
 
     handleSubmit(event){
+        event.preventDefault()
         console.log('DEBUG PURPOSSES: ' + this.state.title + this.state.description);
 
-        fetch('http://localhost:3000/api/categories/', {
+        let form = new FormData();
+        form.append('title', this.state.title);
+        form.append('description', this.state.description);
+
+        fetch('http://localhost:3000/api/quizzes/', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-            },
-            body: JSON.stringify({
-                title: this.state.title,
-                description: this.state.description,
-            })
+            body: form
         })
+            .then((result) => result.json())
+            .then((json) => console.log(json))
+            .catch((error) => console.log(error));
     }
 
     render() {
-        if (!this.state.token) {
+        /*if (!this.state.token) {
             return(
                 <Login url="http://maatwerk.works"
                        clientId="Quiz" clientSecret="f5889489-ea7b-4b36-93d9-4cce40e11867"
                        scope="Quiz" refresh_token={localStorage.getItem('refresh_token')}
                        onResult={this.onLoginResult}/>)
-        } else {
+        } else {*/
         return (
                 <form className="form-horizontal">
                     <div className="form-group">
@@ -69,7 +71,7 @@ class AddQuiz extends Component {
                     </button>
                 </form>
         )
-        }
+        //}
     }
 
     onLoginResult(error, token) {
