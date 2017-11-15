@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
+import TextFieldGroup from '../components/TextFieldGroup';
 import Login from '../components/user/Login';
 
 class AddQuiz extends Component {
     constructor(props){
         super(props);
-        this.state = {title: '', description: '', token: ''};
-        this.handleTitleChange = this.handleTitleChange.bind(this);
-        this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+        this.state = {title: '', description: '', category: '', image: null, token: ''};
+        this.handleChange = this.handleChange.bind(this);
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onLoginResult = this.onLoginResult.bind(this);
     }
 
-
-
-    handleTitleChange(event) {
-        this.setState({title: event.target.value})
-    }
-
-    handleDescriptionChange(event) {
-        this.setState({description: event.target.value})
+    handleChange(event) {
+        this.setState({[event.target.name]: event.target.value});
     }
 
     handleSubmit(event){
@@ -28,6 +23,8 @@ class AddQuiz extends Component {
         let form = new FormData();
         form.append('title', this.state.title);
         form.append('description', this.state.description);
+        form.append('category', this.state.category);
+        form.append('image', this.state.image);
 
         fetch('http://localhost:3000/api/quizzes/', {
             method: 'POST',
@@ -47,29 +44,40 @@ class AddQuiz extends Component {
                        onResult={this.onLoginResult}/>)
         } else {*/
         return (
-                <form className="form-horizontal">
-                    <div className="form-group">
-                        <label className="cols-sm-2 control-label">Title of new quiz</label>
-                        <div className="cols-sm-10">
-                            <div className="input-group">
-                                <span className="input-group-addon"><i class="glyphicon glyphicon-header" aria-hidden="true"></i></span>
-                                <input type="text" className="form-control" placeholder="Title" value={this.state.title} onChange={this.handleTitleChange}/>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label  className="cols-sm-2 control-label">Description of new quiz</label>
-                        <div className="cols-sm-10">
-                            <div className="input-group">
-                                <span className="input-group-addon"><i class="glyphicon glyphicon-align-left" aria-hidden="true"></i></span>
-                                <input type="text" className="form-control" placeholder="Description" value={this.state.description} onChange={this.handleDescriptionChange} />
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" className="btn btn-default btn-group-lg" onClick={this.handleSubmit}>
-                        <span className="glyphicon glyphicon-cloud-upload"></span> Upload!
-                    </button>
-                </form>
+            <form className="form-horizontal" onSubmit={this.handleSubmit}>
+                <TextFieldGroup
+                    field="title"
+                    value={this.state.title}
+                    label="Title"
+                    placeholder="Title"
+                    addon="glyphicon glyphicon-header"
+                    onChange={this.handleChange}/>
+                <TextFieldGroup
+                    field="description"
+                    value={this.state.description}
+                    label="Description"
+                    placeholder="Description"
+                    addon="glyphicon glyphicon-align-left"
+                    onChange={this.handleChange}/>
+                <TextFieldGroup
+                    field="category"
+                    value={this.state.category}
+                    label="Category"
+                    placeholder="Category"
+                    addon="glyphicon glyphicon-book"
+                    onChange={this.handleChange}/>
+                <TextFieldGroup
+                    field="image"
+                    value={this.state.image}
+                    label="Image"
+                    placeholder="Image"
+                    type="file"
+                    addon="glyphicon glyphicon-picture"
+                    onChange={this.handleChange}/>
+                <button className="btn btn-default btn-group-lg">
+                    <span className="glyphicon glyphicon-cloud-upload"></span> Upload!
+                </button>
+            </form>
         )
         //}
     }
